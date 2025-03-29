@@ -1,4 +1,10 @@
 import Image from "next/image";
+import Link from "next/link"
+
+import Search from "@/components/searchbar";
+import Searchbar from "@/components/searchbar";
+import FeaturedProperties from "@/components/featured-properties";
+
 
 export default function Home() {
   return (
@@ -11,26 +17,11 @@ export default function Home() {
             Discover thousands of properties for sale and rent across the country
           </p>
 
-          {/* Search Bar
-          <div className="w-full max-w-3xl rounded-lg bg-white p-4 shadow-lg">
-            <div className="flex flex-col gap-4 md:flex-row">
-              <Input type="text" placeholder="City, neighborhood, or address" className="flex-1" />
-              <div className="flex gap-2">
-                <select className="rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background">
-                  <option value="buy">Buy</option>
-                  <option value="rent">Rent</option>
-                </select>
-                <Button>
-                  <Search className="mr-2 h-4 w-4" />
-                  Search
-                </Button>
-              </div>
-            </div>
-          </div> */}
+          <Searchbar />
         </div> 
       </section>
 
-      {/* Featured Properties
+      {/* Featured Properties */}
       <section className="container mx-auto px-4 py-12">
         <div className="mb-8 flex items-center justify-between">
           <h2 className="text-3xl font-bold">Featured Properties</h2>
@@ -39,15 +30,9 @@ export default function Home() {
           </Link>
         </div>
         <FeaturedProperties />
-      </section> */}
+      </section> 
 
-      {/* How It Works
-      <section className="bg-gray-50 py-12">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-12 text-center text-3xl font-bold">How It Works</h2>
-          <HowItWorks />
-        </div>
-      </section> */}
+      
     </div>
   );
 }
