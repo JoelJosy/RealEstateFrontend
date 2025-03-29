@@ -4,6 +4,7 @@ import Link from "next/link"
 import Search from "@/components/searchbar";
 import Searchbar from "@/components/searchbar";
 import FeaturedProperties from "@/components/featured-properties";
+import HowItWorks from "@/components/how-it-works";
 
 
 export default function Home() {
@@ -32,7 +33,13 @@ export default function Home() {
         <FeaturedProperties />
       </section> 
 
-      
+      {/* How It Works */}
+      <section className="bg-gray-50 py-12">
+        <div className="container mx-auto px-4">
+        <h2 className="mb-12 text-center text-3xl font-bold">How It Works</h2>
+        <HowItWorks />
+        </div>
+      </section>
     </div>
   );
 }
