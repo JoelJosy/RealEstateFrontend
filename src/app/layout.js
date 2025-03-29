@@ -1,6 +1,7 @@
 import React from "react"
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 import { Inter } from "next/font/google"
 
@@ -20,9 +21,9 @@ export default function RootLayout({ children }) {
         className={inter.className}
       >
         <div className="flex min-h-screen flex-col">
-            {/* <Navbar /> */}
+            <Navbar />
             <main className="flex-1">{children}</main>
-            {/* <Footer /> */}
+            <Footer />
           </div>
       </body>
     </html>

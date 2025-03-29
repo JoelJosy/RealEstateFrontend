@@ -23,7 +23,7 @@ export default function HowItWorks() {
   ];
 
   return (
-    <div className="grid gap-8 md:grid-cols-3">
+    <div className="grid gap-8 md:grid-cols-3 my-8">
       {steps.map((step, index) => (
         <div key={index} className="flex flex-col items-center text-center">
           <div className="mb-4 rounded-full bg-primary/10 p-4">{step.icon}</div>
