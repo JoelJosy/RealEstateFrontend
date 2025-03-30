@@ -44,7 +44,7 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-12">
       {/* Hero Section */}
-      <section className="relative h-[600px] w-full bg-gradient-to-r from-gray-950 to-zinc-800">
+      <section className="h-[600px] w-full bg-gradient-to-br from-gray-950 via-gray-800 to-gray-600">
         <div className="container mx-auto flex h-full flex-col items-center justify-center px-4 text-center">
           <h1 className="mb-6 text-4xl font-bold text-white md:text-6xl">Find Your Dream Home</h1>
           <p className="mb-8 max-w-2xl text-xl text-white">

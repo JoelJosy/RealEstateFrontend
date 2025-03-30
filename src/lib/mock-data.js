@@ -23,6 +23,49 @@ export const mockAgents = [
   },
 ]
 
+// Mock Users
+export const mockUsers = [
+  {
+    id: "buyer1",
+    name: "John Doe",
+    email: "john.doe@example.com",
+    phone: "(123) 456-7893",
+    photo: "/images/placeholder.svg",
+    savedProperties: ["prop1", "prop3"],
+    role: "buyer",
+  },
+  {
+    id: "seller1",
+    name: "Jane Smith",
+    email: "jane.smith@example.com",
+    phone: "(123) 456-7894",
+    photo: "/images/placeholder.svg",
+    savedProperties: [],
+    listings: ["prop1", "prop2"],
+    role: "seller",
+  },
+  {
+    id: "seller2",
+    name: "Robert Johnson",
+    email: "robert.johnson@example.com",
+    phone: "(123) 456-7895",
+    photo: "/images/placeholder.svg",
+    savedProperties: [],
+    listings: ["prop3", "prop6"],
+    role: "seller",
+  },
+  {
+    id: "seller3",
+    name: "Emily Davis",
+    email: "emily.davis@example.com",
+    phone: "(123) 456-7896",
+    photo: "/images/placeholder.svg",
+    savedProperties: [],
+    listings: ["prop7", "prop8"],
+    role: "seller",
+  },
+]
+
 // Mock Properties - Removed all rent type properties
 export const mockProperties = [
   {
@@ -160,46 +203,5 @@ export const mockProperties = [
   },
 ]
 
-// Mock Users
-export const mockUsers = [
-  {
-    id: "buyer1",
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phone: "(123) 456-7893",
-    photo: "/images/placeholder.svg",
-    savedProperties: ["prop1", "prop3"],
-    role: "buyer",
-  },
-  {
-    id: "seller1",
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-    phone: "(123) 456-7894",
-    photo: "/images/placeholder.svg",
-    savedProperties: [],
-    listings: ["prop1", "prop2"],
-    role: "seller",
-  },
-  {
-    id: "seller2",
-    name: "Robert Johnson",
-    email: "robert.johnson@example.com",
-    phone: "(123) 456-7895",
-    photo: "/images/placeholder.svg",
-    savedProperties: [],
-    listings: ["prop3", "prop6"],
-    role: "seller",
-  },
-  {
-    id: "seller3",
-    name: "Emily Davis",
-    email: "emily.davis@example.com",
-    phone: "(123) 456-7896",
-    photo: "/images/placeholder.svg",
-    savedProperties: [],
-    listings: ["prop7", "prop8"],
-    role: "seller",
-  },
-]
+
 

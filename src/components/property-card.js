@@ -22,8 +22,8 @@ export default function PropertyCard({ property }) {
                 />
               </div>
             </Link>
-            <Badge className="absolute left-2 top-2" variant={property.type === "rent" ? "secondary" : "default"}>
-              {property.type === "rent" ? "For Rent" : "For Sale"}
+            <Badge className="absolute left-2 top-2">
+              For Sale
             </Badge>
             <Button
               size="icon"
