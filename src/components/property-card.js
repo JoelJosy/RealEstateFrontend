@@ -14,8 +14,8 @@ export default function PropertyCard({ property }) {
             <Link href={`/properties/${property.id}`}>
               <div className="aspect-[16/9] overflow-hidden">
                 <Image
-                  src={property.images[0] || "/images/placeholder.svg"}
-                  alt={property.title}
+                  src={property.image1 || "/images/placeholder.svg"}
+                  alt={property.Title}
                   width={400}
                   height={225}
                   className="h-full w-full object-cover transition-transform hover:scale-105"
@@ -38,31 +38,30 @@ export default function PropertyCard({ property }) {
             <div className="mb-2 flex items-start justify-between">
               <div>
                 <h3 className="font-bold line-clamp-1">
-                  {property.title}
+                  {property.Title}
                 </h3>
                 <div className="flex items-center text-sm text-muted-foreground">
                   <MapPin className="mr-1 h-3 w-3" />
-                  <span className="line-clamp-1">{property.location}</span>
+                  <span className="line-clamp-1">{property.County}</span>
                 </div>
               </div>
               <p className="text-right font-bold text-primary">
-                ${property.price.toLocaleString()}
-                {property.type === "rent" && <span className="text-sm text-muted-foreground">/mo</span>}
+                ${property.Price.toLocaleString()}
               </p>
             </div>
     
             <div className="mt-4 flex justify-between text-sm text-muted-foreground">
               <div className="flex items-center">
                 <Bed className="mr-1 h-4 w-4" />
-                <span>{property.bedrooms} Beds</span>
+                <span>{property.NoOfBedrooms} Beds</span>
               </div>
               <div className="flex items-center">
                 <Bath className="mr-1 h-4 w-4" />
-                <span>{property.bathrooms} Baths</span>
+                <span>{property.NoOfBathrooms} Baths</span>
               </div>
               <div className="flex items-center">
                 <Square className="mr-1 h-4 w-4" />
-                <span>{property.squareFeet} sq ft</span>
+                <span>{property.FloorArea} sq. m</span>
               </div>
             </div>
           </CardContent>

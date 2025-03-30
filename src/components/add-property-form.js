@@ -9,16 +9,16 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 export default function AddPropertyForm({ onSuccess }) {
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    price: "",
-    type: "sale",
-    bedrooms: "",
-    bathrooms: "",
-    squareFeet: "",
-    location: "",
-    yearBuilt: "",
-    features: [],
+    Title: "",
+    Price: "",
+    NoOfBedrooms: "",
+    NoOfBathrooms: "",
+    FloorArea: "",
+    County: "",
+    Area: "",
+    DateOfConstruction: "NA",
+    Features: "",
+    PropertyType:""
   });
 
   const handleChange = (e) => {
@@ -41,87 +41,68 @@ export default function AddPropertyForm({ onSuccess }) {
     onSuccess();
   };
 
-  const availableFeatures = [
-    "Parking",
-    "Pool",
-    "Balcony",
-    "Gym",
-    "Fireplace",
-    "Air Conditioning",
-    "Furnished",
-    "Pet Friendly",
-    "Hardwood Floors",
-    "Stainless Steel Appliances",
-    "Washer/Dryer",
-    "Garden",
-  ];
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6" id="add-prop-form">
       <div className="space-y-2">
         <Label htmlFor="title">Property Title</Label>
-        <Input id="title" name="title" value={formData.title} onChange={handleChange} placeholder="e.g., Modern Downtown Apartment" required />
+        <Input id="title" name="title" value={formData.Title} onChange={handleChange} placeholder="e.g., Modern Downtown Apartment" required />
       </div>
 
-      <div className="space-y-2">
+      {/* <div className="space-y-2">
         <Label htmlFor="description">Description</Label>
         <Textarea id="description" name="description" value={formData.description} onChange={handleChange} placeholder="Describe your property..." rows={4} required />
-      </div>
+      </div> */}
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="price">Price</Label>
-          <Input id="price" name="price" type="number" value={formData.price} onChange={handleChange} placeholder="e.g., 450000" required />
+          <Input id="price" name="price" type="number" value={formData.Price} onChange={handleChange} placeholder="e.g., 450000" required />
         </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-3">
         <div className="space-y-2">
           <Label htmlFor="bedrooms">Bedrooms</Label>
-          <Input id="bedrooms" name="bedrooms" type="number" value={formData.bedrooms} onChange={handleChange} placeholder="e.g., 2" required />
+          <Input id="bedrooms" name="bedrooms" type="number" value={formData.NoOfBedrooms} onChange={handleChange} placeholder="e.g., 2" required />
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="bathrooms">Bathrooms</Label>
-          <Input id="bathrooms" name="bathrooms" type="number" step="0.5" value={formData.bathrooms} onChange={handleChange} placeholder="e.g., 2" required />
+          <Input id="bathrooms" name="bathrooms" type="number" step="0.5" value={formData.NoOfBathrooms} onChange={handleChange} placeholder="e.g., 2" required />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="squareFeet">Square Feet</Label>
-          <Input id="squareFeet" name="squareFeet" type="number" value={formData.squareFeet} onChange={handleChange} placeholder="e.g., 1200" required />
+          <Label htmlFor="FloorArea">Floor Area</Label>
+          <Input id="FloorArea" name="FloorArea" type="number" value={formData.FloorArea} onChange={handleChange} placeholder="e.g., 1200" required />
         </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="location">Location</Label>
-          <Input id="location" name="location" value={formData.location} onChange={handleChange} placeholder="e.g., 123 Main St, New York, NY" required />
+          <Label htmlFor="area">Area</Label>
+          <Input id="area" name="area" value={formData.Area} onChange={handleChange} placeholder="e.g., 123 Main St, New York, NY" required />
         </div>
-
         <div className="space-y-2">
-          <Label htmlFor="yearBuilt">Year Built</Label>
-          <Input id="yearBuilt" name="yearBuilt" type="number" value={formData.yearBuilt} onChange={handleChange} placeholder="e.g., 2018" required />
+          <Label htmlFor="county">County</Label>
+          <Input id="county" name="county" value={formData.County} onChange={handleChange} placeholder="e.g., 123 Main St, New York, NY" required />
+        </div>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-2">
+          <Label htmlFor="PropertyType">Property Type</Label>
+          <Input id="PropertyType" name="PropertyType" value={formData.PropertyType} onChange={handleChange} placeholder="e.g., Detached" required />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="yearBuilt">Date of Construction</Label>
+          <Input id="yearBuilt" name="yearBuilt" type="number" value={formData.DateOfConstruction} onChange={handleChange} placeholder="e.g., 2018" required />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label>Features</Label>
-        <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3">
-          {availableFeatures.map((feature) => (
-            <div key={feature} className="flex items-center space-x-2">
-              <Checkbox
-                id={`feature-${feature}`}
-                name="features" // Added name attribute here
-                checked={formData.features.includes(feature)}
-                onCheckedChange={() => handleFeatureToggle(feature)}
-                disabled={false}
-              />
-              <label htmlFor={`feature-${feature}`} className="text-sm font-medium leading-none">
-                {feature}
-              </label>
-            </div>
-          ))}
-        </div>
+        <Label htmlFor="features">Features</Label>
+        <Input id="features" name="features" value={formData.Features} onChange={handleChange} placeholder="e.g., Seaside view, terrace" required />
       </div>
 
       <div className="space-y-2">

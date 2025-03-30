@@ -17,9 +17,9 @@ export default function PropertiesPage() {
 
     const query = searchQuery.toLowerCase()
     return (
-      property.title.toLowerCase().includes(query) ||
-      property.location.toLowerCase().includes(query) ||
-      property.description.toLowerCase().includes(query)
+      property.Title.toLowerCase().includes(query) ||
+      property.County.toLowerCase().includes(query) ||
+      property.Area.toLowerCase().includes(query)
     )
   })
 

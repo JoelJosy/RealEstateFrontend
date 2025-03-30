@@ -67,13 +67,13 @@ export default function Navbar() {
         <div className="hidden md:flex md:items-center md:gap-4">
           {isLoggedIn ? (
             <>
-              {userRole === "buyer" && (
+              {/* {userRole === "buyer" && (
                 <Link href="/saved">
                   <Button variant="ghost" size="icon">
                     <Heart className="h-5 w-5" />
                   </Button>
                 </Link>
-              )}
+              )} */}
               <Link href="/profile">
                 <Button variant="outline">
                   <User className="mr-2 h-4 w-4" />
@@ -118,12 +118,12 @@ export default function Navbar() {
               <div className="mt-4 flex flex-col gap-2">
                 {isLoggedIn ? (
                   <>
-                    {userRole === "buyer" && (
+                    {/* {userRole === "buyer" && (
                       <Link href="/saved" className="flex items-center py-2 text-lg font-medium">
                         <Heart className="mr-2 h-4 w-4" />
                         Saved Properties
                       </Link>
-                    )}
+                    )} */}
                     <Link href="/profile" className="flex items-center py-2 text-lg font-medium">
                       <User className="mr-2 h-4 w-4" />
                       My Profile
