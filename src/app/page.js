@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
 import Link from "next/link"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation";
 
 import FeaturedProperties from "@/components/featured-properties"
 import HowItWorks from "@/components/how-it-works"
@@ -15,6 +15,7 @@ export default function Home() {
   // In a real app, this would come from authentication context
   const [userRole, setUserRole] = useState(null)
   const [query, setQuery] = useState("")
+  const router = useRouter();
 
   // Simulate getting user role from localStorage on component mount
   useEffect(() => {
@@ -32,6 +33,11 @@ export default function Home() {
   const handleSearch = (e) => {
     e.preventDefault()
     console.log("Search query:", query)
+    if (query.trim()) {
+      router.push(`/properties?search=${encodeURIComponent(query)}`)
+    } else {
+      router.push("/properties")
+    }
   }
 
   // Default buyer view
