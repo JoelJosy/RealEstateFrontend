@@ -1,13 +1,33 @@
-import Image from "next/image";
+"use client"
+
+import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Search } from "lucide-react"
 import Link from "next/link"
 
-import Search from "@/components/searchbar";
-import Searchbar from "@/components/searchbar";
-import FeaturedProperties from "@/components/featured-properties";
-import HowItWorks from "@/components/how-it-works";
-
+import FeaturedProperties from "@/components/featured-properties"
+import HowItWorks from "@/components/how-it-works"
+import SellerDashboard from "@/components/seller-dashboard"
 
 export default function Home() {
+  // In a real app, this would come from authentication context
+  const [userRole, setUserRole] = useState(null)
+
+  // Simulate getting user role from localStorage on component mount
+  // useEffect(() => {
+  //   const storedRole = localStorage.getItem("userRole")
+  //   if (storedRole === "buyer" || storedRole === "seller") {
+  //     setUserRole(storedRole)
+  //   }
+  // }, [])
+
+  // If user is a seller, show seller dashboard
+  if (userRole === "seller") {
+    return <SellerDashboard />
+  }
+
+  // Default buyer view
   return (
     <div className="flex flex-col gap-12">
       {/* Hero Section */}
@@ -15,11 +35,20 @@ export default function Home() {
         <div className="container mx-auto flex h-full flex-col items-center justify-center px-4 text-center">
           <h1 className="mb-6 text-4xl font-bold text-white md:text-6xl">Find Your Dream Home</h1>
           <p className="mb-8 max-w-2xl text-xl text-white">
-            Discover thousands of properties for sale and rent across the country
+            Discover thousands of properties for sale across the country
           </p>
 
-          <Searchbar />
-        </div> 
+          {/* Search Bar */}
+          <div className="w-full max-w-3xl rounded-lg bg-white p-4 shadow-lg">
+            <div className="flex flex-col gap-4 md:flex-row">
+              <Input type="text" placeholder="City, neighborhood, or address" className="flex-1" />
+              <Button>
+                <Search className="mr-2 h-4 w-4" />
+                Search
+              </Button>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Featured Properties */}
@@ -31,15 +60,16 @@ export default function Home() {
           </Link>
         </div>
         <FeaturedProperties />
-      </section> 
+      </section>
 
       {/* How It Works */}
       <section className="bg-gray-50 py-12">
         <div className="container mx-auto px-4">
-        <h2 className="mb-12 text-center text-3xl font-bold">How It Works</h2>
-        <HowItWorks />
+          <h2 className="mb-12 text-center text-3xl font-bold">How It Works</h2>
+          <HowItWorks />
         </div>
       </section>
     </div>
-  );
+  )
 }
+
