@@ -11,7 +11,7 @@ export default function PropertyCard({ property }) {
     return (
         <Card className="overflow-hidden transition-all hover:shadow-md">
           <div className="relative">
-            <Link href={`/`}>
+            <Link href={`/properties/${property.id}`}>
               <div className="aspect-[16/9] overflow-hidden">
                 <Image
                   src={property.images[0] || "/images/placeholder.svg"}
@@ -69,7 +69,7 @@ export default function PropertyCard({ property }) {
     
           <CardFooter className="border-t p-4">
             <Button asChild className="w-full">
-              <Link href={`/`}>View Details</Link>
+              <Link href={`/properties/${property.id}`}>View Details</Link>
             </Button>
           </CardFooter>
         </Card>
