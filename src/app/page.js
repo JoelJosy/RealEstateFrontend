@@ -15,12 +15,12 @@ export default function Home() {
   const [userRole, setUserRole] = useState(null)
 
   // Simulate getting user role from localStorage on component mount
-  // useEffect(() => {
-  //   const storedRole = localStorage.getItem("userRole")
-  //   if (storedRole === "buyer" || storedRole === "seller") {
-  //     setUserRole(storedRole)
-  //   }
-  // }, [])
+  useEffect(() => {
+    const storedRole = localStorage.getItem("userRole")
+    if (storedRole === "buyer" || storedRole === "seller") {
+      setUserRole(storedRole)
+    }
+  }, [])
 
   // If user is a seller, show seller dashboard
   if (userRole === "seller") {

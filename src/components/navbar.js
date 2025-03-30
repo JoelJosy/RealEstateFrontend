@@ -1,35 +1,48 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, User, Home, LogIn, Heart, Building, CircleHelp, HousePlus} from "lucide-react"
-import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Menu, User, Home, LogIn, Heart, Building } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const pathname = usePathname()
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null);
+  const pathname = usePathname();
+  const router = useRouter();
 
-  // Mock function to toggle login state (for demo purposes)
-  const toggleLogin = () => setIsLoggedIn(!isLoggedIn)
+  useEffect(() => {
+    const storedLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const storedRole = localStorage.getItem("userRole");
+
+    setIsLoggedIn(storedLoggedIn);
+    setUserRole(storedRole);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userRole");
+    setIsLoggedIn(false);
+    setUserRole(null);
+    router.push("/");
+  };
 
   const navLinks = [
     { name: "Home", href: "/", icon: <Home className="mr-2 h-4 w-4" /> },
-    { name: "Buy", href: "/properties?type=buy", icon: <HousePlus className="mr-2 h-4 w-4" /> },
-    { name: "Rent", href: "/properties?type=rent", icon: <Building className="mr-2 h-4 w-4" /> },
-    { name: "About", href: "/about", icon: <CircleHelp className="mr-2 h-4 w-4"/> },
-  ]
+    { name: "Buy", href: "/properties", icon: <Building className="mr-2 h-4 w-4" /> },
+    { name: "About", href: "/about", icon: null },
+  ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
-      <div className="container mx-auto flex gap-12 h-20 items-center px-4">
-        <Link href="/" className="mr-6 flex items-center">
-          <span className="text-2xl font-bold">RealEstate</span>
+      <div className="container flex h-16 items-center px-4">
+        <Link href="/" className="mr-6 flex items-center space-x-2">
+          <span className="text-xl font-bold">RealEstate</span>
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex md:flex-1">
           <ul className="flex gap-6">
             {navLinks.map((link) => (
@@ -37,8 +50,8 @@ export default function Navbar() {
                 <Link
                   href={link.href}
                   className={cn(
-                    "flex items-center text-lg font-medium transition-colors hover:text-primary",
-                    pathname === link.href ? "text-primary" : "text-muted-foreground",
+                    "flex items-center text-sm font-medium transition-colors hover:text-primary",
+                    pathname === link.href ? "text-primary" : "text-muted-foreground"
                   )}
                 >
                   {link.icon}
@@ -49,34 +62,41 @@ export default function Navbar() {
           </ul>
         </nav>
 
-        {/* Desktop Auth Buttons */}
         <div className="hidden md:flex md:items-center md:gap-4">
           {isLoggedIn ? (
             <>
-              <Link href="/saved">
-                <Button variant="ghost" size="icon">
-                  <Heart className="h-5 w-5" />
-                </Button>
-              </Link>
+              {userRole === "buyer" && (
+                <Link href="/saved">
+                  <Button variant="ghost" size="icon">
+                    <Heart className="h-5 w-5" />
+                  </Button>
+                </Link>
+              )}
               <Link href="/profile">
                 <Button variant="outline">
                   <User className="mr-2 h-4 w-4" />
                   My Profile
                 </Button>
               </Link>
+              <Button variant="outline" onClick={handleLogout}>
+                Logout
+              </Button>
             </>
           ) : (
             <>
-              <Button variant="outline" onClick={toggleLogin}>
-                <LogIn className="mr-2 h-4 w-4" />
-                Login
-              </Button>
-              <Button>Sign Up</Button>
+              <Link href="/auth/login">
+                <Button variant="outline">
+                  <LogIn className="mr-2 h-4 w-4" />
+                  Login
+                </Button>
+              </Link>
+              <Link href="/auth/login?mode=signup">
+                <Button>Sign Up</Button>
+              </Link>
             </>
           )}
         </div>
 
-        {/* Mobile Menu */}
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="md:hidden ml-auto">
@@ -85,7 +105,7 @@ export default function Navbar() {
             </Button>
           </SheetTrigger>
           <SheetContent side="right">
-            <nav className="flex flex-col gap-4 mx-4 mt-12">
+            <nav className="flex flex-col gap-4 mt-8">
               {navLinks.map((link) => (
                 <Link key={link.name} href={link.href} className="flex items-center py-2 text-lg font-medium">
                   {link.icon}
@@ -96,22 +116,31 @@ export default function Navbar() {
               <div className="mt-4 flex flex-col gap-2">
                 {isLoggedIn ? (
                   <>
-                    <Link href="/saved" className="flex items-center py-2 text-lg font-medium">
-                      <Heart className="mr-2 h-4 w-4" />
-                      Saved Properties
-                    </Link>
+                    {userRole === "buyer" && (
+                      <Link href="/saved" className="flex items-center py-2 text-lg font-medium">
+                        <Heart className="mr-2 h-4 w-4" />
+                        Saved Properties
+                      </Link>
+                    )}
                     <Link href="/profile" className="flex items-center py-2 text-lg font-medium">
                       <User className="mr-2 h-4 w-4" />
                       My Profile
                     </Link>
+                    <Button variant="outline" onClick={handleLogout} className="w-full justify-start">
+                      Logout
+                    </Button>
                   </>
                 ) : (
                   <>
-                    <Button variant="outline" onClick={toggleLogin} className="w-full justify-start">
-                      <LogIn className="mr-2 h-4 w-4" />
-                      Login
-                    </Button>
-                    <Button className="w-full justify-start">Sign Up</Button>
+                    <Link href="/auth/login">
+                      <Button variant="outline" className="w-full justify-start">
+                        <LogIn className="mr-2 h-4 w-4" />
+                        Login
+                      </Button>
+                    </Link>
+                    <Link href="/auth/login?mode=signup">
+                      <Button className="w-full justify-start">Sign Up</Button>
+                    </Link>
                   </>
                 )}
               </div>
@@ -120,6 +149,5 @@ export default function Navbar() {
         </Sheet>
       </div>
     </header>
-  )
+  );
 }
-
