@@ -40,7 +40,7 @@ export default function AboutPage() {
       {/* About Us Section */}
       <section className="text-center space-y-6">
         <h1 className="text-5xl font-bold">About RealEstate</h1>
-        <p className="mx-auto max-w-2xl text-lg text-gray-600">
+        <p className="mx-auto max-w-2xl text-lg text-gray-600 mb-12">
           Connecting buyers and sellers for over a decade with trusted property listings and market insights.
         </p>
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -56,14 +56,14 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="rounded-lg overflow-hidden shadow-lg">
-            <Image src="/images/placeholder.svg" alt="Our team" width={600} height={400} className="w-full object-cover" />
+            <Image src="/images/placeholder.svg" alt="Our team" width={600} height={400} className="w-full max-w-lg object-cover" />
           </div>
         </div>
       </section>
 
       {/* Our Team Section */}
       <section className="text-center space-y-6">
-        <h2 className="text-4xl font-bold my-10">Our Team</h2>
+        <h2 className="text-4xl font-bold my-12">Our Team</h2>
         <p className="mx-auto max-w-2xl text-lg text-gray-600">
           Meet the dedicated professionals working to make your property journey a success.
         </p>
