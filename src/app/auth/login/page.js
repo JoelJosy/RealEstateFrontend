@@ -1,5 +1,6 @@
 "use client"
 
+import { useAuth } from "@/app/contexts/AuthContext"
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -17,12 +18,14 @@ export default function AuthPage() {
   const [activeTab, setActiveTab] = useState(searchParams.get("mode") === "signup" ? "signup" : "login")
   const [userRole, setUserRole] = useState("buyer")
 
+  const { updateLoginState } = useAuth();
+
   const handleLogin = (e) => {
     e.preventDefault()
 
     localStorage.setItem("isLoggedIn", "true")
     localStorage.setItem("userRole", userRole)
-
+    updateLoginState(true, userRole);
     router.push("/")
   }
 

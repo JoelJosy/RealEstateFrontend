@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@/app/contexts/AuthContext"; 
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -9,24 +10,25 @@ import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState(null);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [userRole, setUserRole] = useState(null);
   const pathname = usePathname();
   const router = useRouter();
 
-  useEffect(() => {
-    const storedLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-    const storedRole = localStorage.getItem("userRole");
+  const { isLoggedIn, userRole, updateLoginState } = useAuth();
 
-    setIsLoggedIn(storedLoggedIn);
-    setUserRole(storedRole);
-  }, []);
+  // useEffect(() => {
+  //   const storedLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  //   const storedRole = localStorage.getItem("userRole");
+
+  //   setIsLoggedIn(storedLoggedIn);
+  //   setUserRole(storedRole);
+  // }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("userRole");
-    setIsLoggedIn(false);
-    setUserRole(null);
+    updateLoginState(false, null); // Update context
     router.push("/");
   };
 

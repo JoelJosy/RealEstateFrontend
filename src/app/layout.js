@@ -2,6 +2,7 @@ import React from "react"
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import { AuthProvider } from "./contexts/AuthContext";
 
 import { Inter } from "next/font/google"
 
@@ -21,9 +22,11 @@ export default function RootLayout({ children }) {
         className={inter.className}
       >
         <div className="flex min-h-screen flex-col">
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
+            <AuthProvider>
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </AuthProvider>
           </div>
       </body>
     </html>
