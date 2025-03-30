@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
 import Link from "next/link"
+import { useRouter } from "next/router"
 
 import FeaturedProperties from "@/components/featured-properties"
 import HowItWorks from "@/components/how-it-works"
@@ -13,6 +14,7 @@ import SellerDashboard from "@/components/seller-dashboard"
 export default function Home() {
   // In a real app, this would come from authentication context
   const [userRole, setUserRole] = useState(null)
+  const [query, setQuery] = useState("")
 
   // Simulate getting user role from localStorage on component mount
   useEffect(() => {
@@ -25,6 +27,11 @@ export default function Home() {
   // If user is a seller, show seller dashboard
   if (userRole === "seller") {
     return <SellerDashboard />
+  }
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    console.log("Search query:", query)
   }
 
   // Default buyer view
@@ -41,8 +48,14 @@ export default function Home() {
           {/* Search Bar */}
           <div className="w-full max-w-3xl rounded-lg bg-white p-4 shadow-lg">
             <div className="flex flex-col gap-4 md:flex-row">
-              <Input type="text" placeholder="City, neighborhood, or address" className="flex-1" />
-              <Button>
+              <Input
+                type="text"
+                placeholder="City, neighborhood, or address"
+                className="flex-1"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              <Button onClick={handleSearch}>
                 <Search className="mr-2 h-4 w-4" />
                 Search
               </Button>
