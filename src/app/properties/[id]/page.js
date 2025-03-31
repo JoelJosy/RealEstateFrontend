@@ -1,19 +1,83 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import Image from "next/image"
-import { notFound } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Heart, Share2, MapPin, Bed, Bath, Square, Calendar, CheckCircle2, Phone, Mail } from "lucide-react"
-import { mockProperties } from "@/lib/mock-data"
+import { Heart, Share2, MapPin, Bed, Bath, Square, Calendar, Phone, Mail, Loader2 } from "lucide-react"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { Card, CardContent } from "@/components/ui/card"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { propertyAPI } from "@/lib/api"
+import { useAuth } from "@/app/contexts/AuthContext"
+import { userAPI } from "@/lib/api"
 
-export default function PropertyPage({ params }) {
 
-  const property = mockProperties.find((p) => p.id === Number(params.id));
+export default function PropertyPage() {
+  const params = useParams()
+  const router = useRouter()
+  const { isLoggedIn, userRole, showNotification } = useAuth()
+
+  const [property, setProperty] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+  const [isSaved, setIsSaved] = useState(false)
+  const [saving, setSaving] = useState(false)
+
+  useEffect(() => {
+    async function fetchProperty() {
+      try {
+        setLoading(true)
+        const data = await propertyAPI.getPropertyById(params.id)
+        setProperty(data)
+      } catch (err) {
+        console.error("Error fetching property:", err)
+        setError("Failed to load property details. Please try again later.")
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    if (params.id) {
+      fetchProperty()
+    }
+  }, [params.id])
+
+
+  if (loading) {
+    return (
+      <div className="container mx-auto flex items-center justify-center px-4 py-16">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <Alert variant="destructive">
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+        <Button className="mt-4" onClick={() => router.push("/properties")}>
+          Back to Properties
+        </Button>
+      </div>
+    )
+  }
 
   if (!property) {
-    notFound()
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <Alert>
+          <AlertDescription>Property not found</AlertDescription>
+        </Alert>
+        <Button className="mt-4" onClick={() => router.push("/properties")}>
+          Back to Properties
+        </Button>
+      </div>
+    )
   }
 
   return (
@@ -159,11 +223,15 @@ export default function PropertyPage({ params }) {
               <TabsContent value="features">
                 <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-200">
                   <h3 className="text-lg font-semibold mb-3 text-gray-900">Property Features</h3>
-                  <ul className="space-y-2 text-gray-700 list-disc list-inside">
-                    {property.Features.split(",").map((feature, index) => (
-                      <li key={index} className="pl-2">{feature.trim()}</li>
-                    ))}
-                  </ul>
+                  {property.Features ? (
+                    <ul className="space-y-2 text-gray-700 list-disc list-inside">
+                      {property.Features.split(",").map((feature, index) => (
+                        <li key={index} className="pl-2">{feature.trim()}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <h2 className="text-md font-semibold text-gray-900">N/A</h2>
+                  )}
                 </div>
               </TabsContent>
               {/* Optional: Reviews and Prediction content */}
@@ -174,23 +242,23 @@ export default function PropertyPage({ params }) {
           <div className="rounded-lg border bg-card p-6 shadow-sm">
             <div className="mb-6 text-center">
               <Image
-                src={property.agent.photo || "/images/placeholder.svg"}
-                alt={property.agent.name}
+                src={"/images/placeholder.svg"}
+                alt={"John Doe"}
                 width={100}
                 height={100}
                 className="mx-auto mb-4 rounded-full"
               />
-              <h3 className="text-xl font-bold">{property.agent.name}</h3>
+              <h3 className="text-xl font-bold">John Doe</h3>
               <p className="text-muted-foreground">Real Estate Agent</p>
             </div>
             <div className="mb-6 space-y-2">
               <div className="flex items-center">
                 <Phone className="mr-2 h-4 w-4 text-muted-foreground" />
-                <span>{property.agent.phone}</span>
+                <span>+123 456 789</span>
               </div>
               <div className="flex items-center">
                 <Mail className="mr-2 h-4 w-4 text-muted-foreground" />
-                <span>{property.agent.email}</span>
+                <span>johndoe@example.com</span>
               </div>
             </div>
             <div className="space-y-4">
