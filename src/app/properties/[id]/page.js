@@ -13,6 +13,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { propertyAPI } from "@/lib/api"
 import { useAuth } from "@/app/contexts/AuthContext"
 import { userAPI } from "@/lib/api"
+import { favoritesAPI } from "@/lib/api"
 
 
 export default function PropertyPage() {
@@ -45,6 +46,36 @@ export default function PropertyPage() {
     }
   }, [params.id])
 
+
+  // Handle the save button click to add property to favorites
+  const handleSave = async () => {
+    try {
+      setSaving(true)
+      const response = await favoritesAPI.addToFavorites(property.id)
+      setIsSaved(true)
+      alert("Property added to favorites successfully!");
+    } catch (err) {
+      console.error("Error adding to favorites:", err)
+      alert("Failed to add property");
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  // Handle the unsave button click to remove property from favorites
+  const handleUnsave = async () => {
+    try {
+      setSaving(true)
+      await favoritesAPI.removeFromFavorites(property.id)
+      setIsSaved(false)
+      alert("Property removed from favorites successfully!");
+    } catch (err) {
+      console.error("Error removing from favorites:", err)
+      alert("Failed to remove property");
+    } finally {
+      setSaving(false)
+    }
+  }
 
   if (loading) {
     return (
@@ -92,14 +123,27 @@ export default function PropertyPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm">
-            <Heart className="mr-2 h-4 w-4" />
-            Save
-          </Button>
-          <Button variant="outline" size="sm">
-            <Share2 className="mr-2 h-4 w-4" />
-            Share
-          </Button>
+          {isSaved ? (
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleUnsave} 
+              disabled={saving}
+            >
+              <Heart className="mr-2 h-4 w-4 text-red-500" />
+              {saving ? "Removing..." : "Unsave"}
+            </Button>
+          ) : (
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleSave} 
+              disabled={saving || isSaved}
+            >
+              <Heart className="mr-2 h-4 w-4" />
+              {saving ? "Saving..." : "Save"}
+            </Button>
+          )}
         </div>
       </div>
 

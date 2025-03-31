@@ -131,6 +131,32 @@ export const propertyAPI = {
   },
 }
 
+// Favorite API calls
+export const favoritesAPI = {
+  addToFavorites: async (propertyId) => {
+    try {
+      const response = await api.post("/favorites/add", { propertyId });
+      return response.data;
+    } catch (error) {
+      console.error("Failed to add to favorites:", error);
+      alert("Failed to add Favorites");
+      throw error;
+    }
+  },
+
+  removeFromFavorites: async (propertyId) => {
+    try {
+      const response = await api.delete("/favorites/remove", { data: { propertyId } });
+      alert("Removed from favorites");
+      return response.data;
+    } catch (error) {
+      console.error("Failed to remove from favorites:", error);
+      alert("Failed to remove from favorites");
+      throw error;
+    }
+  },
+};
+
 // User API calls
 export const userAPI = {
   getUserProfile: async (userId) => {
