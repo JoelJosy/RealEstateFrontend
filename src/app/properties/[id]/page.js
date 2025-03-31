@@ -10,6 +10,7 @@ import { Heart, Share2, MapPin, Bed, Bath, Square, Calendar, Phone, Mail, Loader
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { Card, CardContent } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Textarea } from "@/components/ui/textarea"
 import { propertyAPI } from "@/lib/api"
 import { useAuth } from "@/app/contexts/AuthContext"
 import { userAPI } from "@/lib/api"
@@ -26,6 +27,8 @@ export default function PropertyPage() {
   const [error, setError] = useState("")
   const [isSaved, setIsSaved] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [feats, setFeats] = useState("")
+  const [isEditing, setIsEditing] = useState(false) 
 
   useEffect(() => {
     async function fetchProperty() {
@@ -33,6 +36,7 @@ export default function PropertyPage() {
         setLoading(true)
         const data = await propertyAPI.getPropertyById(params.id)
         setProperty(data)
+        setFeats(data.Features || "") 
       } catch (err) {
         console.error("Error fetching property:", err)
         setError("Failed to load property details. Please try again later.")
@@ -76,6 +80,31 @@ export default function PropertyPage() {
       setSaving(false)
     }
   }
+
+  const handleEdit = async () => {
+    try {
+      await propertyAPI.updateProperty(property.id, { Features: feats });
+      alert("Property updated successfully");
+
+      // Refetch property to show updated features
+      const updatedProperty = await propertyAPI.getPropertyById(property.id);
+      setProperty(updatedProperty);
+      setFeats(updatedProperty.Features || "");
+      setIsEditing(false);
+
+    } catch (error) {
+      console.error("Error updating property", error);
+      alert("Failed to edit property");
+    }
+  };
+
+  const toggleEdit = () => {
+    if (isEditing) {
+      handleEdit();
+    } else {
+      setIsEditing(true);
+    }
+  };
 
   if (loading) {
     return (
@@ -276,6 +305,20 @@ export default function PropertyPage() {
                   ) : (
                     <h2 className="text-md font-semibold text-gray-900">N/A</h2>
                   )}
+                  <Textarea
+                    className="w-full my-8"
+                    value={feats}
+                    onChange={(e) => setFeats(e.target.value)}
+                    placeholder="Edit property features..."
+                    disabled={!isEditing}
+                  />
+
+                  {isEditing ? (
+                    <Button onClick={toggleEdit} className="mr-2">Save</Button>
+                  ) : (
+                    <Button onClick={toggleEdit}>Edit</Button>
+                  )}
+
                 </div>
               </TabsContent>
               {/* Optional: Reviews and Prediction content */}

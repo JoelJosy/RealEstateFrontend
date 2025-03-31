@@ -110,13 +110,16 @@ export const propertyAPI = {
     }
   },
 
-  updateProperty: async (id, propertyData) => {
+  updateProperty: async (id, updatedData) => {
     try {
-      const response = await api.put(`/properties/${id}`, propertyData)
-      return response
+      const response = await api.put(`/properties/${id}`, updatedData);
+      console.log("Updated Property:", response);
+      alert("Property updated successfully!");
+      return response;
     } catch (error) {
-      console.error("Failed to update property:", error)
-      throw error
+      console.error("Error updating property:", error);
+      alert(error.message || "Failed to update property.");
+      throw error;
     }
   },
 
