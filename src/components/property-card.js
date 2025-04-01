@@ -25,13 +25,13 @@ export default function PropertyCard({ property }) {
             <Badge className="absolute left-2 top-2">
               For Sale
             </Badge>
-            <Button
+            {/* <Button
               size="icon"
               variant="ghost"
               className="absolute right-2 top-2 h-8 w-8 rounded-full bg-white/80 text-muted-foreground hover:text-primary"
             >
               <Heart className="h-4 w-4" />
-            </Button>
+            </Button> */}
           </div>
     
           <CardContent className="p-4">

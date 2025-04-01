@@ -37,6 +37,17 @@ export default function PropertyPage() {
         const data = await propertyAPI.getPropertyById(params.id)
         setProperty(data)
         setFeats(data.Features || "") 
+
+        // Check if already favorited
+        try {
+          const favorites = await favoritesAPI.getFavorites(); // Fetch user's saved properties
+          const isPropertySaved = favorites.some((fav) => fav.id === data.id);
+          console.log("Property Saved: ", isPropertySaved)
+          setIsSaved(isPropertySaved);
+        } catch (err) {
+          console.log("No favorites")
+        }
+
       } catch (err) {
         console.error("Error fetching property:", err)
         setError("Failed to load property details. Please try again later.")
@@ -55,6 +66,7 @@ export default function PropertyPage() {
   const handleSave = async () => {
     try {
       setSaving(true)
+      console.log(property.id)
       const response = await favoritesAPI.addToFavorites(property.id)
       setIsSaved(true)
       alert("Property added to favorites successfully!");

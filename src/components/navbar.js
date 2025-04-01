@@ -67,13 +67,12 @@ export default function Navbar() {
         <div className="hidden md:flex md:items-center md:gap-4">
           {isLoggedIn ? (
             <>
-              {/* {userRole === "buyer" && (
-                <Link href="/saved">
-                  <Button variant="ghost" size="icon">
-                    <Heart className="h-5 w-5" />
-                  </Button>
-                </Link>
-              )} */}
+              <Link href="/saved">
+                <Button variant="ghost" size="icon">
+                  <Heart className="h-5 w-5" />
+                </Button>
+              </Link>
+              
               <Link href="/profile">
                 <Button variant="outline">
                   <User className="mr-2 h-4 w-4" />

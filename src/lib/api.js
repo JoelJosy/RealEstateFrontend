@@ -159,6 +159,18 @@ export const favoritesAPI = {
       throw error;
     }
   },
+
+  getFavorites: async (propertyId) => {
+    try {
+      const response = await api.get("/favorites/get");
+      return response.data;
+    } catch (error) {
+      console.error("Failed to retrieve favorites:", error);
+      // alert("Failed to retrieve favorites");
+      // throw error;
+    }
+  },
+
 };
 
 // User API calls
