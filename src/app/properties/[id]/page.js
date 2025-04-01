@@ -321,7 +321,7 @@ export default function PropertyPage() {
 
                 </div>
               </TabsContent>
-              {/* Optional: Reviews and Prediction content */}
+              {/* Reviews and Prediction content */}
             </Tabs>
           </div>
 
@@ -330,29 +330,22 @@ export default function PropertyPage() {
             <div className="mb-6 text-center">
               <Image
                 src={"/images/placeholder.svg"}
-                alt={"John Doe"}
+                alt={property.username || "Unknown Agent"}
                 width={100}
                 height={100}
                 className="mx-auto mb-4 rounded-full"
               />
-              <h3 className="text-xl font-bold">John Doe</h3>
+              <h3 className="text-xl font-bold">{property.username || "Unknown Agent"}</h3>
               <p className="text-muted-foreground">Real Estate Agent</p>
             </div>
             <div className="mb-6 space-y-2">
               <div className="flex items-center">
-                <Phone className="mr-2 h-4 w-4 text-muted-foreground" />
-                <span>+123 456 789</span>
-              </div>
-              <div className="flex items-center">
                 <Mail className="mr-2 h-4 w-4 text-muted-foreground" />
-                <span>johndoe@example.com</span>
+                <span>{property.email || "N/A"}</span>
               </div>
             </div>
             <div className="space-y-4">
               <Button className="w-full">Contact Agent</Button>
-              <Button variant="outline" className="w-full">
-                Schedule a Tour
-              </Button>
             </div>
           </div>
         </div>

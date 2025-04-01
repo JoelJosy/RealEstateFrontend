@@ -88,6 +88,30 @@ export const propertyAPI = {
     }
   },
 
+  updateProperty: async (id, updatedData) => {
+    try {
+      const response = await api.put(`/properties/${id}`, updatedData);
+      console.log("Updated Property:", response);
+      alert("Property updated successfully!");
+      return response;
+    } catch (error) {
+      console.error("Error updating property:", error);
+      alert(error.message || "Failed to update property.");
+      throw error;
+    }
+  },
+
+
+  deleteProperty: async (id) => {
+    try {
+      const response = await api.delete(`/properties/${id}`)
+      return response
+    } catch (error) {
+      console.error("Failed to delete property:", error)
+      throw error
+    }
+  },
+
   getSellerProperties: async (sellerId) => {
     try {
       const response = await api.get(`/properties/seller/${sellerId}`)
@@ -106,29 +130,6 @@ export const propertyAPI = {
       return response
     } catch (error) {
       console.error("Failed to add property:", error)
-      throw error
-    }
-  },
-
-  updateProperty: async (id, updatedData) => {
-    try {
-      const response = await api.put(`/properties/${id}`, updatedData);
-      console.log("Updated Property:", response);
-      alert("Property updated successfully!");
-      return response;
-    } catch (error) {
-      console.error("Error updating property:", error);
-      alert(error.message || "Failed to update property.");
-      throw error;
-    }
-  },
-
-  deleteProperty: async (id) => {
-    try {
-      const response = await api.delete(`/properties/${id}`)
-      return response
-    } catch (error) {
-      console.error("Failed to delete property:", error)
       throw error
     }
   },
