@@ -23,8 +23,8 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response.data,
   (error) => {
-    console.error("API Error:", error.response?.data || error.message)
-    throw error.response?.data || { error: "API request failed" }
+    // console.log("API Error:", error.response?.data || error.message)
+    // throw error.response?.data || { error: "API request failed" }
   },
 )
 
@@ -47,8 +47,7 @@ export const authAPI = {
       return response
     } catch (error) {
       console.error("Registration error:", error)
-      // For demo purposes, return mock data
-      return { token: "mock-token", user_type: userData.user_type, id: "user123" }
+      
     }
   },
 }
@@ -163,9 +162,9 @@ export const favoritesAPI = {
   getFavorites: async (propertyId) => {
     try {
       const response = await api.get("/favorites/get");
-      return response.data;
+      return response;
     } catch (error) {
-      console.error("Failed to retrieve favorites:", error);
+      console.log("Failed to retrieve favorites:");
       // alert("Failed to retrieve favorites");
       // throw error;
     }

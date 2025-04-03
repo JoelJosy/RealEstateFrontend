@@ -41,9 +41,10 @@ export default function PropertyPage() {
         // Check if already favorited
         try {
           const favorites = await favoritesAPI.getFavorites(); // Fetch user's saved properties
-          const isPropertySaved = favorites.some((fav) => fav.id === data.id);
-          console.log("Property Saved: ", isPropertySaved)
-          setIsSaved(isPropertySaved);
+          favorites.forEach(fav => {
+            if (fav.id === data.id) setIsSaved(true);
+          });
+          
         } catch (err) {
           console.log("No favorites")
         }
