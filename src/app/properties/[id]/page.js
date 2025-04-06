@@ -15,6 +15,8 @@ import { propertyAPI } from "@/lib/api"
 import { useAuth } from "@/app/contexts/AuthContext"
 import { userAPI } from "@/lib/api"
 import { favoritesAPI } from "@/lib/api"
+import { toast } from 'sonner'
+
 
 
 export default function PropertyPage() {
@@ -70,10 +72,10 @@ export default function PropertyPage() {
       console.log(property.id)
       const response = await favoritesAPI.addToFavorites(property.id)
       setIsSaved(true)
-      alert("Property added to favorites successfully!");
+      toast.success("Added to favorites");
     } catch (err) {
       console.error("Error adding to favorites:", err)
-      alert("Failed to add property");
+      toast.warning("Failed to add property");
     } finally {
       setSaving(false)
     }
@@ -85,10 +87,10 @@ export default function PropertyPage() {
       setSaving(true)
       await favoritesAPI.removeFromFavorites(property.id)
       setIsSaved(false)
-      alert("Property removed from favorites successfully!");
+      toast.error("Removed from favorites");
     } catch (err) {
       console.error("Error removing from favorites:", err)
-      alert("Failed to remove property");
+      toast.warning("Failed to remove property");
     } finally {
       setSaving(false)
     }

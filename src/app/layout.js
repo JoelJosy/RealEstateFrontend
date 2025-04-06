@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { AuthProvider } from "./contexts/AuthContext";
+import { Toaster } from "@/components/ui/sonner"
 
 import { Inter } from "next/font/google"
 
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
             <AuthProvider>
               <Navbar />
               <main className="flex-1">{children}</main>
+              <Toaster richColors/>
               <Footer />
             </AuthProvider>
           </div>

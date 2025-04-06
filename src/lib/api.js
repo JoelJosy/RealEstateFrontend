@@ -150,7 +150,7 @@ export const favoritesAPI = {
   removeFromFavorites: async (propertyId) => {
     try {
       const response = await api.delete("/favorites/remove", { data: { propertyId } });
-      alert("Removed from favorites");
+      // alert("Removed from favorites");
       return response.data;
     } catch (error) {
       console.error("Failed to remove from favorites:", error);
