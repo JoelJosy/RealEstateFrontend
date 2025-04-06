@@ -17,11 +17,6 @@ export default function SavedPropertiesPage() {
   const [error, setError] = useState("")
 
   useEffect(() => {
-    // Redirect if not logged in
-    if (!isLoggedIn) {
-      router.push("/auth/login")
-      return
-    }
 
     async function fetchFavorites() {
       try {

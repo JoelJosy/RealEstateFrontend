@@ -65,37 +65,12 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden md:flex md:items-center md:gap-4">
-          {isLoggedIn ? (
-            <>
-              <Link href="/saved">
-                <Button variant="ghost" size="icon">
-                  <Heart className="h-5 w-5" />
-                </Button>
-              </Link>
-              
-              <Link href="/profile">
-                <Button variant="outline">
-                  <User className="mr-2 h-4 w-4" />
-                  My Profile
-                </Button>
-              </Link>
-              <Button variant="outline" onClick={handleLogout}>
-                Logout
-              </Button>
-            </>
-          ) : (
-            <>
-              <Link href="/auth/login">
-                <Button variant="outline">
-                  <LogIn className="mr-2 h-4 w-4" />
-                  Login
-                </Button>
-              </Link>
-              <Link href="/auth/login?mode=signup">
-                <Button>Sign Up</Button>
-              </Link>
-            </>
-          )}
+          <Link href="/saved">
+            <Button className="w-full mx-5" variant="ghost" size="icon">
+              <Heart className="h-5 w-5" />
+              Favorites
+            </Button>
+          </Link>
         </div>
 
         <Sheet>
@@ -115,35 +90,12 @@ export default function Navbar() {
               ))}
 
               <div className="mt-4 flex flex-col gap-2">
-                {isLoggedIn ? (
-                  <>
-                    {/* {userRole === "buyer" && (
-                      <Link href="/saved" className="flex items-center py-2 text-lg font-medium">
-                        <Heart className="mr-2 h-4 w-4" />
-                        Saved Properties
-                      </Link>
-                    )} */}
-                    <Link href="/profile" className="flex items-center py-2 text-lg font-medium">
-                      <User className="mr-2 h-4 w-4" />
-                      My Profile
-                    </Link>
-                    <Button variant="outline" onClick={handleLogout} className="w-full justify-start">
-                      Logout
-                    </Button>
-                  </>
-                ) : (
-                  <>
-                    <Link href="/auth/login">
-                      <Button variant="outline" className="w-full justify-start">
-                        <LogIn className="mr-2 h-4 w-4" />
-                        Login
-                      </Button>
-                    </Link>
-                    <Link href="/auth/login?mode=signup">
-                      <Button className="w-full justify-start">Sign Up</Button>
-                    </Link>
-                  </>
-                )}
+                <Link href="/saved">
+                  <Button variant="ghost" size="icon">
+                    <Heart className="h-5 w-5" />
+                      Favorites
+                  </Button>
+                </Link>
               </div>
             </nav>
           </SheetContent>
